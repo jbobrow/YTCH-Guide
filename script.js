@@ -62,30 +62,36 @@ function populateTimeline(data) {
         // Iterate through each video in the channel
         for (const videoKey in channelData) {
             const video = channelData[videoKey];
-            let startTime = video.playAt; // Get the start time in seconds
+            let startTime = new Date(video.playAt); // Get the start time in seconds
             let startTimeDate = new Date(1970, 0, 1); 
-            startTime = startTime - startTimeDate.getTimezoneOffset()*60; // Correct for the offset         
+            // console.log("offset: "+startTimeDate.getTimezoneOffset());
+                // TODO: Figure out the correct way to use the timezone offset
+            startTime = startTime - 4*60*60;//startTimeDate.getTimezoneOffset()*60; // Correct for the offset         
             const endTime = startTime + video.duration; // Calculate the end time in seconds
-            const endWindowTime = currentTimeNearest + numHalfHourTimeSlots/2 * 60 * 60;
+            const endWindowTime = currentTimeNearest + numHalfHourTimeSlots/2.0 * 60 * 60;
 
             // Check if the video in the visible window of 2 hrs
-            if ( currentTime < endTime && startTime < endWindowTime) {
+            if ( currentTimeNearest < endTime && startTime < endWindowTime) {
                 const videoSlot = document.createElement("div");
                 videoSlot.classList.add("video-slot");
 
                 // Calculate the width based on the duration (e.g., 100px per 30 minutes)
                 let visibleDuration = video.duration;
                 if( startTime < currentTimeNearest ) {  // if this video starts before the starting window
-                    visibleDuration -= currentTimeNearest - startTime;
+                    console.log("duration: " + visibleDuration/60);
+                    visibleDuration = visibleDuration - (currentTimeNearest - startTime);
+                    console.log("vis-duration: " + visibleDuration/60);
                 }
                 if( endTime > endWindowTime) {  // if this video ends after the end of the window
                     visibleDuration = endWindowTime - startTime;
                 } 
-                const width = (visibleDuration / (1800) * 100); // 1800 seconds = 30 minutes
-                // console.log("width: " + width);
+                // NOTE: Since the width of the slot is flexible, we use a VERY LARGE
+                // initial px width to make sure they all scale with the time
+                const width = (visibleDuration * 10000) / 1800; // 1800 seconds = 30 minutes
+                //console.log("width: " + width);
                 videoSlot.style.width = `${width}px`;
-
-                startTimeDate.setSeconds(startTime-startTimeDate.getTimezoneOffset()*60);
+                // TODO: Figure out the correct way to use the timezone offset
+                startTimeDate.setSeconds(startTime-4*60*60);
                 // TODO: Replace this with the title of the video
                 // Currently displays the ID, the start time, and the run time... useful for debugging
                 videoSlot.innerHTML = video.id + "<br>" + startTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " -- Runtime: " + Math.round(video.duration/60) + " min"; // Display the video ID or any other relevant info
