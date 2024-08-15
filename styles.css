@@ -21,6 +21,7 @@ body {
     margin: 0px;
     bottom: 0px;
     border-top: 2px solid #000000;
+    height: 50%;
 }
 
 .header-row, .channel-row {
@@ -29,6 +30,12 @@ body {
 }
 
 .header-row {
+}
+
+.channel-rows {
+    clear: both;
+    margin-top: 7px;
+    overflow-y:auto;
 }
 
 .time-slot-current, .channel-name {
@@ -54,6 +61,8 @@ body {
 .time-slot-current {
     background-color: #424DA4;
     color: #FFFFFF;
+    text-align: center;
+    align-content: center;
     height: 100%;
 }
 
@@ -84,5 +93,6 @@ body {
     background-color: #424DA4;
     color: #F8FFBE;
     text-align: center;
+    align-content: center;
     height: 100%;
 }

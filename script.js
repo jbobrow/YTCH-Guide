@@ -38,7 +38,7 @@ function populateTimeSlots() {
 
 function populateTimeline(data) {
     const currentTime = Math.floor(Date.now() / 1000); // Get the current time in seconds
-    const guideElement = document.querySelector(".tv-guide");
+    const guideElement = document.querySelector(".channel-rows");
 
     // for the starting window
     const currentTimeDate = new Date();
