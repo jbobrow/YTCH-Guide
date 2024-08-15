@@ -2,8 +2,7 @@
 A TV-Guide for hadisafa's YTCH.xyz via Hacker News (https://news.ycombinator.com/item?id=41247023)
 
 ----------
-### 📺 View YTCH [here](https://ytch.xyz/)
-### 📰 View guide [here](https://git.jonathanbobrow.com/YTCH-Guide/)
+### [📺 Click to view YTCH](https://ytch.xyz/) ᠁᠁ [📰 Click to view YTCH-guide](https://git.jonathanbobrow.com/YTCH-Guide/)
 
 ----------
 
