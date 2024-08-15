@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", loadTVGuide());
+
+function loadTVGuide() {
     // Fetch the JSON data
     fetch("https://ytch.xyz/list.json")
         .then(response => response.json())
@@ -7,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
             populateTimeline(data);
         })
         .catch(error => console.error("Error loading JSON:", error));
-});
+};
 
 const numHalfHourTimeSlots = 4; // 2 Hours of schedule seems like a good default
 
@@ -15,12 +17,16 @@ function populateTimeSlots() {
     const headerRow = document.querySelector(".header-row");
     const currentTime = new Date();
 
-    // Update the time in the top left
-    updateTime();
+    // clear the contents
+    headerRow.innerHTML = '';
 
     // Round current time to the nearest half-hour
     const currentMinutes = currentTime.getMinutes();
     currentTime.setMinutes(currentMinutes < 30 ? 0 : 30, 0, 0);
+
+    // Create a slot for the current time
+    headerRow.innerHTML = "<div id='current-time' class='time-slot-current'>--:--</div>";
+    updateTime();
 
     // Populate the next few time slots (e.g., 2 hours worth, adjust as needed)
     for (let i = 0; i < numHalfHourTimeSlots; i++) {
@@ -39,6 +45,10 @@ function populateTimeSlots() {
 function populateTimeline(data) {
     const currentTime = Math.floor(Date.now() / 1000); // Get the current time in seconds
     const guideElement = document.querySelector(".channel-rows");
+    
+    // clear the contents
+    guideElement.innerHTML = '';
+
 
     // for the starting window
     const currentTimeDate = new Date();
@@ -78,9 +88,7 @@ function populateTimeline(data) {
                 // Calculate the width based on the duration (e.g., 100px per 30 minutes)
                 let visibleDuration = video.duration;
                 if( startTime < currentTimeNearest ) {  // if this video starts before the starting window
-                    console.log("duration: " + visibleDuration/60);
                     visibleDuration = visibleDuration - (currentTimeNearest - startTime);
-                    console.log("vis-duration: " + visibleDuration/60);
                 }
                 if( endTime > endWindowTime) {  // if this video ends after the end of the window
                     visibleDuration = endWindowTime - startTime;
@@ -132,8 +140,20 @@ function updateTime() {
     const currentTimeString = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const timeElement = document.getElementById("current-time");
     timeElement.innerHTML = currentTimeString;
-    // If the time is :00 or :30, update the timeline as well
+}
+
+function updateSchedule() {
+    const currentTime = new Date();
     
+    // If the time is :00 or :30, update the timeline as well
+    if(currentTime.getMinutes() == 0 || currentTime.getMinutes() == 30 || currentTime.getMinutes() == 23) {
+        loadTVGuide();
+    }
+}
+
+function updateTimeAndSchedule() {
+    updateTime();
+    updateSchedule();
 }
 
 function toggleDrawer() {
@@ -146,4 +166,5 @@ function toggleDrawer() {
     }
 }
 
-setInterval(updateTime, 1000);
+// Regularly check to update time
+let timeInterval = setInterval(updateTimeAndSchedule, 10*1000);   // update every 10 seconds
