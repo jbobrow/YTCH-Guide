@@ -89,6 +89,10 @@ function populateTimeline(data) {
                 // TODO: Replace this with the title of the video
                 // Currently displays the ID, the start time, and the run time... useful for debugging
                 videoSlot.innerHTML = video.id + "<br>" + startTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " -- Runtime: " + Math.round(video.duration/60) + " min"; // Display the video ID or any other relevant info
+                // Add accessible label to the div
+                const labelString = "YoutubeID: " + video.id + "\nPlaying at: " + startTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "\nRuntime: " + Math.round(video.duration/60) + " min";
+                videoSlot.ariaLabel = labelString; 
+                videoSlot.setAttribute('title', labelString);
                 channelRow.appendChild(videoSlot);
             }
         }
