@@ -132,7 +132,18 @@ function updateTime() {
     const currentTimeString = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const timeElement = document.getElementById("current-time");
     timeElement.innerHTML = currentTimeString;
+    // If the time is :00 or :30, update the timeline as well
+    
+}
 
+function toggleDrawer() {
+    const guideElement = document.querySelector(".tv-guide");
+    if( guideElement.style.height != '0%') {
+        guideElement.style.height = '0%';
+    }
+    else {
+        guideElement.style.height = '50%';
+    }
 }
 
 setInterval(updateTime, 1000);
