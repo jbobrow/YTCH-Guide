@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error loading JSON:", error));
 });
 
+const numHalfHourTimeSlots = 4; // 2 Hours of schedule seems like a good default
+
 function populateTimeSlots() {
     const headerRow = document.querySelector(".header-row");
     const currentTime = new Date();
@@ -21,7 +23,7 @@ function populateTimeSlots() {
     currentTime.setMinutes(currentMinutes < 30 ? 0 : 30, 0, 0);
 
     // Populate the next few time slots (e.g., 2 hours worth, adjust as needed)
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < numHalfHourTimeSlots; i++) {
         const timeSlot = document.createElement("div");
         timeSlot.classList.add("time-slot");
 
@@ -62,9 +64,9 @@ function populateTimeline(data) {
             const video = channelData[videoKey];
             let startTime = video.playAt; // Get the start time in seconds
             let startTimeDate = new Date(1970, 0, 1); 
-            startTime -= startTimeDate.getTimezoneOffset()*60;          
+            startTime = startTime - startTimeDate.getTimezoneOffset()*60; // Correct for the offset         
             const endTime = startTime + video.duration; // Calculate the end time in seconds
-            const endWindowTime = currentTimeNearest + 2.5 * 60 * 60;
+            const endWindowTime = currentTimeNearest + numHalfHourTimeSlots/2 * 60 * 60;
 
             // Check if the video in the visible window of 2 hrs
             if ( currentTime < endTime && startTime < endWindowTime) {
@@ -73,7 +75,6 @@ function populateTimeline(data) {
 
                 // Calculate the width based on the duration (e.g., 100px per 30 minutes)
                 let visibleDuration = video.duration;
-                const endWindowTime = currentTimeNearest + 2 * 60 * 60;
                 if( startTime < currentTimeNearest ) {  // if this video starts before the starting window
                     visibleDuration -= currentTimeNearest - startTime;
                 }
