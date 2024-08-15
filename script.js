@@ -99,17 +99,17 @@ function populateTimeline(data) {
 function getChannelName(channel) {
     let name = "...";
     switch(channel) {
-        case "1": name = "SciSpot"; break;
+        case "1": name = "SCI/TECH"; break;
         case "2": name = "TripTease"; break;
         case "3": name = "TasteBuds"; break;
-        case "4": name = "BrickFlicks"; break;
-        case "5": name = "FrameCraft"; break;
-        case "6": name = "RealLens"; break;
+        case "4": name = "BlueprintTV"; break;
+        case "5": name = "CineMin"; break;
+        case "6": name = "DocUniverse"; break;
         case "7": name = "GiggleBox"; break;
         case "8": name = "Rhythm&Views"; break;
-        case "9": name = "GearShift"; break;
+        case "9": name = "RPM"; break;
         case "10": name = "PolitixNow"; break;
-        case "11": name = "KnockOutTV"; break;
+        case "11": name = "KO-TV"; break;
         case "12": name = "PodPulse"; break;
     }
     return name;
