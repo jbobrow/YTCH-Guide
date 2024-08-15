@@ -1,0 +1,88 @@
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+    font-family: "Anton", sans-serif;
+    letter-spacing: 1px;
+    font-size: 1.3em;
+    margin: 0;
+    padding: 0;
+    background-color: #EAEAEA;
+}
+
+.tv-guide {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+    bottom: 0px;
+    border-top: 2px solid #000000;
+}
+
+.header-row, .channel-row {
+    display: flex;
+    align-items: center;
+}
+
+.header-row {
+}
+
+.time-slot-current, .channel-name {
+    width: 150px; /* Fixed width for the leftmost column */
+    padding: 4px 10px 4px 10px;
+    color: #F8FFBE;
+    background-color: #202245;
+    text-shadow: #000000 2px 2px 5px;
+    text-align: center;
+    flex-shrink: 0; /* Prevent shrinking of the leftmost column */
+    border-top: 3px solid #FFFFFF;
+    border-left: 3px solid #FFFFFF;
+    border-right: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+
+}
+
+.channel-name {
+    height: 64px;
+    align-content: center;
+}
+
+.time-slot-current {
+    background-color: #424DA4;
+    color: #FFFFFF;
+    height: 100%;
+}
+
+.time-slot, .video-slot {
+    padding: 4px 10px 4px 10px;
+    color: #FFFFFF;
+    text-shadow: #000000     2px 2px 2px;
+    flex-grow: 1; /* Allow the time slots and video slots to grow */
+    border-top: 3px solid #FFFFFF;
+    border-left: 3px solid #FFFFFF;
+    border-right: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+    transition: background-color 0.3s ease;
+}
+
+.video-slot {
+    display: -webkit-box;
+    height: 64px;
+    background-color: #4B8CDD;
+    text-align: left;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.time-slot {
+    background-color: #424DA4;
+    color: #F8FFBE;
+    text-align: center;
+    height: 100%;
+}
