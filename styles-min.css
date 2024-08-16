@@ -121,6 +121,7 @@ body {
     text-overflow: ellipsis;
     mix-blend-mode: lighten;
     white-space: nowrap;
+    text-transform: uppercase;
 }
 
 .duration {
@@ -129,7 +130,7 @@ body {
     border-radius: 0.3rem;
     padding: 1px 4px;
     border: 1px solid rgba(255,255,255,0.2);
-
+    text-transform: lowercase;
 }
 
 .time-slot {
