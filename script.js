@@ -123,13 +123,13 @@ function getChannelName(channel) {
         case "3": name = "Food"; break;
         case "4": name = "Architecture"; break;
         case "5": name = "Film"; break;
-        case "6": name = "Documentary"; break;
+        case "6": name = "Documentaries"; break;
         case "7": name = "Comedy"; break;
         case "8": name = "Music"; break;
-        case "9": name = "Cars"; break;
-        case "10": name = "Politics"; break;
+        case "9": name = "Autos"; break;
+        case "10": name = "News"; break;
         case "11": name = "UFC"; break;
-        case "12": name = "Podcasts"; break;
+        case "12": name = "Talk Shows"; break;
     }
     return name;
 }
