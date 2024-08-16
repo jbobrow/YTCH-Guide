@@ -65,7 +65,7 @@ function populateTimeline(data) {
         // Create the channel name element
         const channelName = document.createElement("div");
         channelName.classList.add("channel-name");
-        channelName.innerHTML = `YTCH ${channelNumber}` + "<br>" + getChannelName(channelNumber);;
+        channelName.innerHTML = `Channel ${channelNumber}` + "<br><span class='channel-title'>" + getChannelName(channelNumber) + "</span>";
         channelRow.appendChild(channelName);
 
 
@@ -102,7 +102,7 @@ function populateTimeline(data) {
                 // TODO: Figure out the correct way to use the timezone offset
                 // TODO: Replace this with the title of the video
                 // Currently displays the ID, the start time, and the run time... useful for debugging
-                videoSlot.innerHTML = video.id + "<br>" + startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " -- Runtime: " + Math.round(video.duration/60) + " min"; // Display the video ID or any other relevant info
+                videoSlot.innerHTML = video.id + "<br><span class='duration'>" + Math.round(video.duration/60) + "m</span>"; // Display the video ID or any other relevant info
                 // Add accessible label to the div
                 const labelString = "YoutubeID: " + video.id + "\nPlaying at: " + startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "\nRuntime: " + Math.round(video.duration/60) + " min";
                 videoSlot.ariaLabel = labelString; 
@@ -118,18 +118,18 @@ function populateTimeline(data) {
 function getChannelName(channel) {
     let name = "...";
     switch(channel) {
-        case "1": name = "SCI/TECH"; break;
-        case "2": name = "TripTease"; break;
-        case "3": name = "TasteBuds"; break;
-        case "4": name = "BlueprintTV"; break;
-        case "5": name = "CineMin"; break;
-        case "6": name = "DocUniverse"; break;
-        case "7": name = "GiggleBox"; break;
-        case "8": name = "Rhythm&Views"; break;
-        case "9": name = "RPM"; break;
-        case "10": name = "PolitixNow"; break;
-        case "11": name = "KO-TV"; break;
-        case "12": name = "PodPulse"; break;
+        case "1": name = "Sci & Tech"; break;
+        case "2": name = "Travel"; break;
+        case "3": name = "Food"; break;
+        case "4": name = "Architecture"; break;
+        case "5": name = "Film"; break;
+        case "6": name = "Documentary"; break;
+        case "7": name = "Comedy"; break;
+        case "8": name = "Music"; break;
+        case "9": name = "Cars"; break;
+        case "10": name = "Politics"; break;
+        case "11": name = "UFC"; break;
+        case "12": name = "Podcasts"; break;
     }
     return name;
 }
