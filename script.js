@@ -1,3 +1,11 @@
+/*
+    TVCH-Guide
+    ----------
+    Populate a grid with the upcoming TVCH shows
+
+*/
+
+
 document.addEventListener("DOMContentLoaded", loadTVGuide());
 
 function loadTVGuide() {
@@ -102,7 +110,8 @@ function populateTimeline(data) {
                 // TODO: Figure out the correct way to use the timezone offset
                 // TODO: Replace this with the title of the video
                 // Currently displays the ID, the start time, and the run time... useful for debugging
-                videoSlot.innerHTML = video.id + "<br><span class='duration'>" + Math.round(video.duration/60) + "m</span>"; // Display the video ID or any other relevant info
+                const vidTitle = getYoutubeVideoTitle(video.id);
+                videoSlot.innerHTML = vidTitle + "<br><span class='duration'>" + Math.round(video.duration/60) + "m</span>"; // Display the video ID or any other relevant info
                 // Add accessible label to the div
                 const labelString = "YoutubeID: " + video.id + "\nPlaying at: " + startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "\nRuntime: " + Math.round(video.duration/60) + " min";
                 videoSlot.ariaLabel = labelString; 
@@ -173,6 +182,34 @@ function toggleDrawer() {
     else {
         guideElement.style.height = '50%';
     }
+}
+
+function getYoutubeVideoTitle(videoID) {
+    // Define the videoId and ytApiKey variables
+    const videoId = videoID.toString();
+    const ytApiKey = "AIzaSyC6HGsp4VAFmwz-i5FiP6YNappXrWwfrNg";
+
+    // Create the full API URL
+    const apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + videoId + "&key=" + ytApiKey;
+
+    // Make the HTTP GET request using the Fetch API
+    fetch(apiUrl)
+      .then(response => {
+        // Check if the response is OK (status 200-299)
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();  // Parse the JSON data
+      })
+      .then(data => {
+        // Access the video title and return it
+        return data.items[0].snippet.title;
+      })
+      .catch(error => {
+        // Handle any errors that occur during the fetch
+        console.error('There was a problem with the fetch operation:', error);
+        return "--";
+      });
 }
 
 // Regularly check to update time
