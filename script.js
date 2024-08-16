@@ -72,26 +72,27 @@ function populateTimeline(data) {
         // Iterate through each video in the channel
         for (const videoKey in channelData) {
             const video = channelData[videoKey];
-            let startTime = new Date(video.playAt); // Get the start time in seconds
-            let startTimeDate = new Date(1970, 0, 1); 
-            // console.log("offset: "+startTimeDate.getTimezoneOffset());
-                // TODO: Figure out the correct way to use the timezone offset
-            startTime = startTime - 4*60*60;//startTimeDate.getTimezoneOffset()*60; // Correct for the offset         
-            const endTime = startTime + video.duration; // Calculate the end time in seconds
-            const endWindowTime = currentTimeNearest + numHalfHourTimeSlots/2.0 * 60 * 60;
+            var startTime = new Date(1970, 0, 1);   // Initialize
+            startTime.setSeconds(video.playAt); // Get the start time in seconds
+            // TODO: Figure out the correct way to use the timezone offset
+            const offsetHours = new Date().getTimezoneOffset() / 60;
+            startTime = subtractTimeFromDate(startTime, offsetHours);
+            const startTimeSeconds = startTime.getTime()/1000;
+            const endTime = startTimeSeconds + video.duration; // Calculate the end time in seconds
+            const endWindowTime = currentTimeNearest + numHalfHourTimeSlots/2 * 60 * 60;
 
             // Check if the video in the visible window of 2 hrs
-            if ( currentTimeNearest < endTime && startTime < endWindowTime) {
+            if ( currentTimeNearest < endTime && startTimeSeconds < endWindowTime) {
                 const videoSlot = document.createElement("div");
                 videoSlot.classList.add("video-slot");
 
                 // Calculate the width based on the duration (e.g., 100px per 30 minutes)
                 let visibleDuration = video.duration;
-                if( startTime < currentTimeNearest ) {  // if this video starts before the starting window
-                    visibleDuration = visibleDuration - (currentTimeNearest - startTime);
+                if( startTimeSeconds < currentTimeNearest ) {  // if this video starts before the starting window
+                    visibleDuration = visibleDuration - (currentTimeNearest - startTimeSeconds);
                 }
                 if( endTime > endWindowTime) {  // if this video ends after the end of the window
-                    visibleDuration = endWindowTime - startTime;
+                    visibleDuration = endWindowTime - startTimeSeconds;
                 } 
                 // NOTE: Since the width of the slot is flexible, we use a VERY LARGE
                 // initial px width to make sure they all scale with the time
@@ -99,12 +100,11 @@ function populateTimeline(data) {
                 //console.log("width: " + width);
                 videoSlot.style.width = `${width}px`;
                 // TODO: Figure out the correct way to use the timezone offset
-                startTimeDate.setSeconds(startTime-4*60*60);
                 // TODO: Replace this with the title of the video
                 // Currently displays the ID, the start time, and the run time... useful for debugging
-                videoSlot.innerHTML = video.id + "<br>" + startTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " -- Runtime: " + Math.round(video.duration/60) + " min"; // Display the video ID or any other relevant info
+                videoSlot.innerHTML = video.id + "<br>" + startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " -- Runtime: " + Math.round(video.duration/60) + " min"; // Display the video ID or any other relevant info
                 // Add accessible label to the div
-                const labelString = "YoutubeID: " + video.id + "\nPlaying at: " + startTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "\nRuntime: " + Math.round(video.duration/60) + " min";
+                const labelString = "YoutubeID: " + video.id + "\nPlaying at: " + startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "\nRuntime: " + Math.round(video.duration/60) + " min";
                 videoSlot.ariaLabel = labelString; 
                 videoSlot.setAttribute('title', labelString);
                 channelRow.appendChild(videoSlot);
@@ -154,6 +154,15 @@ function updateSchedule() {
 function updateTimeAndSchedule() {
     updateTime();
     updateSchedule();
+}
+
+function subtractTimeFromDate(objDate, intHours) {
+    var numberOfMillis = objDate;
+    var addMillis = (intHours * 60) * 60 * 1000;
+    var newDateObj = new Date(numberOfMillis - addMillis);
+    // console.log("old time: " + objDate);
+    // console.log("new time: " + newDateObj);
+    return newDateObj;
 }
 
 function toggleDrawer() {
