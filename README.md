@@ -4,6 +4,8 @@ A TV-Guide for hadisafa's YTCH.xyz via Hacker News (https://news.ycombinator.com
 ----------
 ### [📺 Click to view YTCH](https://ytch.xyz/) ᠁᠁ [📰 Click to view YTCH-guide](https://git.jonathanbobrow.com/YTCH-Guide/)
 
+🧘 Updated to a more minimalist theme.
+
 ----------
 
 ## Inspiration
