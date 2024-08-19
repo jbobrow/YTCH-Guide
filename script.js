@@ -141,7 +141,12 @@ function getChannelName(channel) {
         case "9": name = "Autos"; break;
         case "10": name = "News"; break;
         case "11": name = "UFC"; break;
-        case "12": name = "Talk Shows"; break;
+        case "12": name = "Podcasts"; break;
+        case "13": name = "Gaming"; break;
+        case "14": name = "Literature"; break;
+        case "15": name = "Cooking"; break;
+        case "16": name = "Short Films"; break;
+        case "17": name = "Game Shows"; break;
     }
     return name;
 }
