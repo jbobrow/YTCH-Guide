@@ -163,7 +163,7 @@ function updateSchedule() {
     const currentTime = new Date();
     
     // If the time is :00 or :30, update the timeline as well
-    if(currentTime.getMinutes() == 0 || currentTime.getMinutes() == 30 || currentTime.getMinutes() == 23) {
+    if(currentTime.getSeconds() == 0 && (currentTime.getMinutes() == 0 || currentTime.getMinutes() == 30)) {
         loadTVGuide();
     }
 }
@@ -217,4 +217,4 @@ async function getYoutubeVideoTitle(videoID) {
 }
 
 // Regularly check to update time
-let timeInterval = setInterval(updateTimeAndSchedule, 10*1000);   // update every 10 seconds
+let timeInterval = setInterval(updateTimeAndSchedule, 1000);   // update every 10 seconds
