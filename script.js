@@ -147,6 +147,7 @@ function getChannelName(channel) {
         case "15": name = "Cooking"; break;
         case "16": name = "Short Films"; break;
         case "17": name = "Game Shows"; break;
+        case "18": name = "Cartoons"; break;
     }
     return name;
 }
