@@ -193,9 +193,7 @@ function toggleDrawer() {
 }
 
 async function getYoutubeVideoTitle(videoID) {
-    const videoIdString = videoID;
-    const ytApiKey = "AIzaSyCBNmjTW1asT0JeCjjMyr_vBFwZBpJDBRo";
-    const apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + videoIdString + "&key=" + ytApiKey;
+    const apiUrl = `https://us-central1-ytch-guide.cloudfunctions.net/getDataFromAPI?videoId=${videoID}`;
     console.log('request: ' + apiUrl);
 
     try {
@@ -205,11 +203,11 @@ async function getYoutubeVideoTitle(videoID) {
         }
         const data = await response.json();
 
-        // Check if items array exists and has at least one item
-        if (data.items && data.items.length > 0) {
-            return data.items[0].snippet.title;
+        // Check if title is present
+        if (data.title) {
+            return data.title;
         } else {
-            console.error('No video found for the given videoId.');
+            console.error('No title found for the given videoId.');
             return "--";
         }
     } catch (error) {
