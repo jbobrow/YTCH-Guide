@@ -148,6 +148,8 @@ function getChannelName(channel) {
         case "16": name = "Short Films"; break;
         case "17": name = "Game Shows"; break;
         case "18": name = "Cartoons"; break;
+        case "19": name = "Baseball"; break;
+        case "20": name = "Product Reviews"; break;
     }
     return name;
 }
