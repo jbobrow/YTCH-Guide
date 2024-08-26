@@ -16,28 +16,28 @@ body {
 }
 
 #drawer-tab {
-    padding: 5px;
+    display: none;
+    /*padding: 5px;
     margin-left: 30px;
     margin-top: -40px;  /* pop the tab up above the tv-guide container */
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;
     width: 20px;
     height: 20px;
     color: rgba(255,255,255,0.8);
     background-color: rgba(255,255,255,0.1);
     align-content: top;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 10px;*/
 }
 
 .tv-guide {
     position: fixed;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin: 0px;
-    bottom: 0px;
-    height: 50%;
-    transition: height 0.6s cubic-bezier(.25,.0,.5,1);
+    width: 90%;
+    height: 80%;
+    padding: 5%;
+/*    transition: height 0.6s cubic-bezier(.25,.0,.5,1);*/
     background-color: rgba(0,0,0,0.6);
     backdrop-filter: blur(20px);
 }
@@ -122,6 +122,10 @@ body {
     mix-blend-mode: lighten;
     white-space: nowrap;
     text-transform: uppercase;
+}
+
+.now-playing {
+    background-color: rgba(255,255,255,0.4);    
 }
 
 .duration {

@@ -102,6 +102,11 @@ function populateTimeline(data) {
                 if( endTime > endWindowTime) {  // if this video ends after the end of the window
                     visibleDuration = endWindowTime - startTimeSeconds;
                 } 
+
+                // Let's style the currently playing video
+                if( startTimeSeconds < currentTime && currentTime < endTime ) {
+                    videoSlot.classList.add('now-playing');
+                }
                 // NOTE: Since the width of the slot is flexible, we use a VERY LARGE
                 // initial px width to make sure they all scale with the time
                 const width = (visibleDuration * 10000) / 1800; // 1800 seconds = 30 minutes
@@ -149,7 +154,7 @@ function getChannelName(channel) {
         case "17": name = "Game Shows"; break;
         case "18": name = "Cartoons"; break;
         case "19": name = "Baseball"; break;
-        case "20": name = "Product Reviews"; break;
+        case "20": name = "Prod Reviews"; break;
     }
     return name;
 }
@@ -220,4 +225,4 @@ async function getYoutubeVideoTitle(videoID) {
 }
 
 // Regularly check to update time
-let timeInterval = setInterval(updateTimeAndSchedule, 1000);   // update every 10 seconds
+let timeInterval = setInterval(updateTimeAndSchedule, 1000);   // update every second
