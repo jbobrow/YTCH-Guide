@@ -126,9 +126,6 @@ body {
     text-transform: uppercase;
 }
 
-.now-playing {
-    background-color: rgba(255,255,255,0.3);    
-}
 
 .duration {
     font-size: .7em;
@@ -137,6 +134,12 @@ body {
     padding: 1px 4px;
     border: 1px solid rgba(255,255,255,0.2);
     text-transform: lowercase;
+}
+
+.now-playing .duration{
+    border: 1px solid rgba(255,255,255,0.0);
+    background-color: rgba(255,255,255,0.4);
+    color: rgba(0, 0, 0, 0.8);    
 }
 
 .time-slot {
