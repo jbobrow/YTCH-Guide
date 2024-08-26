@@ -63,6 +63,8 @@ body {
     clear: both;
     margin-top: 8px;
     overflow-y:auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255, 0.2) rgba(255,255,255, 0.0);
 }
 
 .time-slot-current, .channel-name {
@@ -112,7 +114,7 @@ body {
     margin: 4px;
     border-radius: 0.3rem;
     color: rgba(255,255,255,0.8);
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.1);
     text-align: left;
     align-content: center;
     -webkit-line-clamp: 2;
@@ -125,7 +127,7 @@ body {
 }
 
 .now-playing {
-    background-color: rgba(255,255,255,0.4);    
+    background-color: rgba(255,255,255,0.3);    
 }
 
 .duration {
